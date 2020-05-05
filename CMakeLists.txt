@@ -37,7 +37,8 @@ set(INSTALL_LIB_DIR "${CMAKE_INSTALL_PREFIX}/lib")
 ## Includes.
 ##
 
-include_directories(include)
+include_directories(include /usr/local/include)
+link_directories(/usr/local/lib/)
 
 ##
 ## Compiler options.
