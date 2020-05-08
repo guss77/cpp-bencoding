@@ -18,9 +18,9 @@ class BStringTests: public Test {};
 
 TEST_F(BStringTests,
 ValueReturnsCorrectValueAfterCreation) {
-	auto s = BString::create("test");
+	std::shared_ptr<BString> s = BString::create("test");
 
-	EXPECT_EQ("test", s->value());
+	EXPECT_EQ("test", *s->value());
 }
 
 TEST_F(BStringTests,
@@ -28,7 +28,7 @@ ValueReturnsCorrectValueAfterSet) {
 	auto s = BString::create("test");
 	s->setValue("other");
 
-	EXPECT_EQ("other", s->value());
+	EXPECT_EQ("other", *s->value());
 }
 
 TEST_F(BStringTests,
