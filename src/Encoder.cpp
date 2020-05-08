@@ -66,7 +66,7 @@ void Encoder::visit(BString *bString) {
 	// See the description of Decoder::decodeString() for the format and
 	// example.
 	std::string encodedString(
-		std::to_string(bString->length()) + ":" + bString->value()
+		std::to_string(bString->length()) + ":" + *bString->value()
 	);
 	encodedData += encodedString;
 }

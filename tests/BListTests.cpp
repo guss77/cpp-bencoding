@@ -43,11 +43,11 @@ TEST_F(BListTests,
 SizeCorrespondsToNumberOfItemsAppendedIntoList) {
 	auto l = BList::create();
 
-	ASSERT_EQ(0, l->size());
+	ASSERT_EQ(0, static_cast<int>(l->size()));
 	l->push_back(BInteger::create(1));
-	ASSERT_EQ(1, l->size());
+	ASSERT_EQ(1, static_cast<int>(l->size()));
 	l->push_back(BInteger::create(1));
-	ASSERT_EQ(2, l->size());
+	ASSERT_EQ(2, static_cast<int>(l->size()));
 }
 
 TEST_F(BListTests,
@@ -56,7 +56,7 @@ ListCreatedFromNonEmptySequenceOfItemsContainsTheItems) {
 	std::shared_ptr<BItem> secondItem = BInteger::create(2);
 	auto l = BList::create({firstItem, secondItem});
 
-	EXPECT_EQ(2, l->size());
+	EXPECT_EQ(2, static_cast<int>(l->size()));
 	EXPECT_EQ(firstItem, l->front());
 	EXPECT_EQ(secondItem, l->back());
 }
@@ -69,9 +69,9 @@ PopBackCorrectlyRemovesLastItemInNonEmptyList) {
 	std::shared_ptr<BItem> secondItem = BInteger::create(2);
 	l->push_back(secondItem);
 
-	ASSERT_EQ(2, l->size());
+	ASSERT_EQ(2, static_cast<int>(l->size()));
 	l->pop_back();
-	ASSERT_EQ(1, l->size());
+	ASSERT_EQ(1, static_cast<int>(l->size()));
 	EXPECT_EQ(firstItem, l->front());
 }
 

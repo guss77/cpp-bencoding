@@ -23,14 +23,16 @@ namespace bencoding {
 class BString: public BItem {
 public:
 	/// Type of the underlying string value.
-	using ValueType = std::string;
-
+//	using ValueType = std::string;
+    using ValueType = std::shared_ptr<std::string>;
 public:
+    static std::unique_ptr<BString> create(std::string value);
 	static std::unique_ptr<BString> create(ValueType value);
 
 	ValueType value() const;
 	void setValue(ValueType value);
-	ValueType::size_type length() const;
+    void setValue(std::string value);
+    int64_t length() const;
 
 	/// @name BItemVisitor Support
 	/// @{
@@ -39,6 +41,7 @@ public:
 
 private:
 	explicit BString(ValueType value);
+    explicit BString(std::string value);
 
 private:
 	ValueType _value;

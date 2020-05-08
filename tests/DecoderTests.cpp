@@ -39,6 +39,7 @@ void DecoderTests::assertDecodedAs(
 
 	ASSERT_NE(bItem, nullptr)
 		<< "expected a correctly decoded item";
+
 	EXPECT_NE(bItem->as<T>(), nullptr)
 		<< "expected " << typeid(T).name() << ", "
 		<< "got " << typeid(*bItem).name();
@@ -67,16 +68,16 @@ DictionaryWithSingleItemIsDecodedCorrectly) {
 	ADD_SCOPED_TRACE;
 	assertDecodedAs<BDictionary>(bItem);
 	auto bDictionary = bItem->as<BDictionary>();
-	EXPECT_EQ(1, bDictionary->size());
+	EXPECT_EQ(1, static_cast<int>(bDictionary->size()));
 
 	auto i = bDictionary->begin();
 	assertDecodedAs<BString>(i->first);
 	auto key = i->first->as<BString>();
-	EXPECT_EQ("test", key->value());
+	EXPECT_EQ("test", *key->value());
 
 	assertDecodedAs<BInteger>(i->second);
 	auto value = i->second->as<BInteger>();
-	EXPECT_EQ(1, value->value());
+	EXPECT_EQ(1, static_cast<int>(value->value()));
 }
 
 TEST_F(DecoderTests,
@@ -87,25 +88,26 @@ DictionaryWithTwoItemsIsDecodedCorrectly) {
 	ADD_SCOPED_TRACE;
 	assertDecodedAs<BDictionary>(bItem);
 	auto bDictionary = bItem->as<BDictionary>();
-	EXPECT_EQ(2, bDictionary->size());
+
+	EXPECT_EQ(2, static_cast<int>(bDictionary->size()));
 
 	auto i = bDictionary->begin();
 	assertDecodedAs<BString>(i->first);
 	auto key1 = i->first->as<BString>();
-	EXPECT_EQ("test1", key1->value());
+	EXPECT_EQ("test1", *key1->value());
 
 	assertDecodedAs<BInteger>(i->second);
 	auto value1 = i->second->as<BInteger>();
-	EXPECT_EQ(1, value1->value());
+	EXPECT_EQ(1, static_cast<int>(value1->value()));
 
 	++i;
 	assertDecodedAs<BString>(i->first);
 	auto key2 = i->first->as<BString>();
-	EXPECT_EQ("test2", key2->value());
+	EXPECT_EQ("test2", *key2->value());
 
 	assertDecodedAs<BInteger>(i->second);
 	auto value2 = i->second->as<BInteger>();
-	EXPECT_EQ(2, value2->value());
+	EXPECT_EQ(2, static_cast<int>(value2->value()));
 }
 
 TEST_F(DecoderTests,
@@ -120,25 +122,25 @@ DictionaryWithKeysThatAreNotSortedIsDecodedCorrectly) {
 	ADD_SCOPED_TRACE;
 	assertDecodedAs<BDictionary>(bItem);
 	auto bDictionary = bItem->as<BDictionary>();
-	EXPECT_EQ(2, bDictionary->size());
+	EXPECT_EQ(2, static_cast<int>(bDictionary->size()));
 
 	auto i = bDictionary->begin();
 	assertDecodedAs<BString>(i->first);
 	auto key1 = i->first->as<BString>();
-	EXPECT_EQ("a", key1->value());
+	EXPECT_EQ("a", *key1->value());
 
 	assertDecodedAs<BInteger>(i->second);
 	auto value1 = i->second->as<BInteger>();
-	EXPECT_EQ(1, value1->value());
+	EXPECT_EQ(1, static_cast<int>(value1->value()));
 
 	++i;
 	assertDecodedAs<BString>(i->first);
 	auto key2 = i->first->as<BString>();
-	EXPECT_EQ("b", key2->value());
+	EXPECT_EQ("b", *key2->value());
 
 	assertDecodedAs<BInteger>(i->second);
 	auto value2 = i->second->as<BInteger>();
-	EXPECT_EQ(2, value2->value());
+	EXPECT_EQ(2, static_cast<int>(value2->value()));
 }
 
 TEST_F(DecoderTests,
@@ -173,7 +175,7 @@ PositiveIntegerIsCorrectlyDecoded) {
 	ADD_SCOPED_TRACE;
 	assertDecodedAs<BInteger>(bItem);
 	auto bInteger = bItem->as<BInteger>();
-	EXPECT_EQ(13, bInteger->value());
+	EXPECT_EQ(13, static_cast<int>(bInteger->value()));
 }
 
 TEST_F(DecoderTests,
@@ -183,7 +185,7 @@ ExplicitlyPositiveIntegerIsCorrectlyDecoded) {
 	ADD_SCOPED_TRACE;
 	assertDecodedAs<BInteger>(bItem);
 	auto bInteger = bItem->as<BInteger>();
-	EXPECT_EQ(+13, bInteger->value());
+	EXPECT_EQ(+13, static_cast<int>(bInteger->value()));
 }
 
 TEST_F(DecoderTests,
@@ -193,7 +195,7 @@ NegativeIntegerIsCorrectlyDecoded) {
 	ADD_SCOPED_TRACE;
 	assertDecodedAs<BInteger>(bItem);
 	auto bInteger = bItem->as<BInteger>();
-	EXPECT_EQ(-13, bInteger->value());
+	EXPECT_EQ(-13, static_cast<int>(bInteger->value()));
 }
 
 TEST_F(DecoderTests,
@@ -260,11 +262,11 @@ ListWithSingleIntegerIsDecodedCorrectly) {
 	ADD_SCOPED_TRACE;
 	assertDecodedAs<BList>(bItem);
 	auto bList = bItem->as<BList>();
-	ASSERT_EQ(1, bList->size());
+	ASSERT_EQ(1, static_cast<int>(bList->size()));
 	auto firstItem = bList->front();
 	assertDecodedAs<BInteger>(firstItem);
 	auto firstItemAsInteger = firstItem->as<BInteger>();
-	EXPECT_EQ(1, firstItemAsInteger->value());
+	EXPECT_EQ(1, static_cast<int>(firstItemAsInteger->value()));
 }
 
 TEST_F(DecoderTests,
@@ -275,17 +277,17 @@ ListWithTwoStringsIsDecodedCorrectly) {
 	ADD_SCOPED_TRACE;
 	assertDecodedAs<BList>(bItem);
 	auto bList = bItem->as<BList>();
-	ASSERT_EQ(2, bList->size());
+	ASSERT_EQ(2, static_cast<int>(bList->size()));
 	// "test"
 	auto firstItem = bList->front();
 	assertDecodedAs<BString>(firstItem);
 	auto firstItemAsString = firstItem->as<BString>();
-	EXPECT_EQ("test", firstItemAsString->value());
+	EXPECT_EQ("test", *firstItemAsString->value());
 	// "hello"
 	auto secondItem = bList->back();
 	assertDecodedAs<BString>(secondItem);
 	auto secondItemAsString = secondItem->as<BString>();
-	EXPECT_EQ("hello", secondItemAsString->value());
+	EXPECT_EQ("hello", *secondItemAsString->value());
 }
 
 TEST_F(DecoderTests,
@@ -311,7 +313,7 @@ EmptyStringIsCorrrectlyDecoded) {
 	ADD_SCOPED_TRACE;
 	assertDecodedAs<BString>(bItem);
 	auto bString = bItem->as<BString>();
-	EXPECT_EQ("", bString->value());
+	EXPECT_EQ("", *bString->value());
 }
 
 TEST_F(DecoderTests,
@@ -322,7 +324,7 @@ NonemptyStringWithSingleCharacterIsCorrrectlyDecoded) {
 	ADD_SCOPED_TRACE;
 	assertDecodedAs<BString>(bItem);
 	auto bString = bItem->as<BString>();
-	EXPECT_EQ("a", bString->value());
+	EXPECT_EQ("a", *bString->value());
 }
 
 TEST_F(DecoderTests,
@@ -333,7 +335,7 @@ NonemptyStringWithTenCharacterIsCorrrectlyDecoded) {
 	ADD_SCOPED_TRACE;
 	assertDecodedAs<BString>(bItem);
 	auto bString = bItem->as<BString>();
-	EXPECT_EQ("abcdefghij", bString->value());
+	EXPECT_EQ("abcdefghij", *bString->value());
 }
 
 TEST_F(DecoderTests,

@@ -35,7 +35,8 @@ DictionaryIsEmptyAfterCreationFromEmptySequenceOfItems) {
 TEST_F(BDictionaryTests,
 DictionaryIsNotEmptyAfterItemIsAddedToEmptyDictionary) {
 	auto d = BDictionary::create();
-	(*d)[BString::create("test")] = BInteger::create(1);
+    std::shared_ptr<BString> bs = BString::create("test");
+	(*d)[bs] = BInteger::create(1);
 
 	EXPECT_FALSE(d->empty());
 }
@@ -44,11 +45,11 @@ TEST_F(BDictionaryTests,
 SizeCorrespondsToNumberOfItemsInsertedIntoDictionary) {
 	auto d = BDictionary::create();
 
-	ASSERT_EQ(0, d->size());
+	ASSERT_EQ(0, static_cast<int>(d->size()));
 	(*d)[BString::create("test")] = BInteger::create(1);
-	ASSERT_EQ(1, d->size());
+	ASSERT_EQ(1, static_cast<int>(d->size()));
 	(*d)[BString::create("test2")] = BInteger::create(2);
-	ASSERT_EQ(2, d->size());
+	ASSERT_EQ(2, static_cast<int>(d->size()));
 }
 
 TEST_F(BDictionaryTests,
@@ -62,7 +63,7 @@ DictionaryCreatedFromNonEmptySequenceOfItemsContainsTheItems) {
 		{secondKey, secondValue}
 	});
 
-	EXPECT_EQ(2, d->size());
+	EXPECT_EQ(2, static_cast<int>(d->size()));
 
 	auto i = d->begin();
 	EXPECT_EQ(firstKey, i->first);

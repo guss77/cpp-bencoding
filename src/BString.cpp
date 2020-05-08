@@ -16,11 +16,19 @@ namespace bencoding {
 */
 BString::BString(ValueType value): _value(value) {}
 
+BString::BString(std::string value) {
+    _value = std::shared_ptr<std::string>(new std::string(value));
+}
+
 /**
 * @brief Creates and returns a new string.
 */
 std::unique_ptr<BString> BString::create(ValueType value) {
 	return std::unique_ptr<BString>(new BString(value));
+}
+
+std::unique_ptr<BString> BString::create(std::string value) {
+    return std::unique_ptr<BString>(new BString(value));
 }
 
 /**
@@ -37,11 +45,15 @@ void BString::setValue(ValueType value) {
 	_value = value;
 }
 
+void BString::setValue(std::string value) {
+    _value = std::shared_ptr<std::string>(new std::string(value));
+}
+
 /**
 * @brief Returns the number of characters in the string.
 */
-auto BString::length() const -> ValueType::size_type {
-	return _value.length();
+int64_t BString::length() const{
+	return _value->length();
 }
 
 void BString::accept(BItemVisitor *visitor) {

@@ -140,7 +140,7 @@ void PrettyPrinter::visit(BString *bString) {
 	//     "string"
 	//
 	// We have to put a backslash before quotes, i.e. replace " with \".
-	prettyRepr += '"' + replace(bString->value(), '"', std::string(R"(\")")) + '"';
+	prettyRepr += '"' + replace(*bString->value(), '"', std::string(R"(\")")) + '"';
 }
 
 /**
