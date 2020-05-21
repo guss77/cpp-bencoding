@@ -46,16 +46,14 @@ private:
 	*/
 	class BStringByValueComparator {
 	public:
-		bool operator()(const std::shared_ptr<BString> &lhs,
-			const std::shared_ptr<BString> &rhs) const;
+		bool operator()(const std::shared_ptr<BString> &lhs, const std::shared_ptr<BString> &rhs) const;
 	};
 
 private:
 	/// Mapping of strings into items.
 	// See the class description for the reason why a custom comparator is
 	// used instead of @c std::less<>.
-	using BItemMap = std::map<std::shared_ptr<BString>,
-		std::shared_ptr<BItem>, BStringByValueComparator>;
+	using BItemMap = std::map<std::shared_ptr<BString>, std::shared_ptr<BItem>, BStringByValueComparator>;
 
 public:
 	/// Key type.
@@ -84,8 +82,12 @@ public:
 
 public:
 	static std::unique_ptr<BDictionary> create();
-	static std::unique_ptr<BDictionary> create(
-		std::initializer_list<value_type> items);
+	static std::unique_ptr<BDictionary> create(std::initializer_list<value_type> items);
+
+    mapped_type setDefault(key_type key, mapped_type value);
+    mapped_type setDefault(std::string key, std::shared_ptr<BItem> value);
+    bool hasKey(std::string key);
+    bool hasKey(key_type key);
 
 	/// @name Capacity
 	/// @{
@@ -95,7 +97,8 @@ public:
 
 	/// @name Element Access and Modifiers
 	/// @{
-	mapped_type &operator[](const key_type &key);
+	mapped_type &operator[](key_type key);
+    mapped_type &operator[](std::string key);
 	/// @}
 
 	/// @name Iterators

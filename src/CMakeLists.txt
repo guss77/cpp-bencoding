@@ -22,3 +22,6 @@ set(BENCODING_SOURCES
 add_library(bencoding ${BENCODING_SOURCES})
 
 install(TARGETS bencoding DESTINATION "${INSTALL_LIB_DIR}")
+
+add_executable(test test.cpp)
+target_link_libraries(test bencoding)

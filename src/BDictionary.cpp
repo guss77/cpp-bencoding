@@ -4,7 +4,7 @@
 * @license   BSD, see the @c LICENSE file for more details
 * @brief     Implementation of the BDictionary class.
 */
-
+#include <iostream>
 #include "BDictionary.h"
 
 #include <cassert>
@@ -22,7 +22,8 @@ namespace bencoding {
 bool BDictionary::BStringByValueComparator::operator()(
 		const std::shared_ptr<BString> &lhs,
 		const std::shared_ptr<BString> &rhs) const {
-	return lhs->value() < rhs->value();
+
+	return *(lhs->value()) < *(rhs->value());
 }
 
 /**
@@ -75,8 +76,13 @@ bool BDictionary::empty() const {
 * If there is no value mapped to @a key, an insertion of a null pointer is
 * automatically performed, and a reference to this null pointer is returned.
 */
-BDictionary::mapped_type &BDictionary::operator[](const key_type &key) {
+BDictionary::mapped_type &BDictionary::operator[](key_type key) {
 	return itemMap[key];
+}
+
+BDictionary::mapped_type &BDictionary::operator[](std::string key) {
+    key_type tmpKey = key_type(BString::create(key));
+    return itemMap[tmpKey];
 }
 
 /**
@@ -123,6 +129,34 @@ BDictionary::const_iterator BDictionary::cend() const {
 
 void BDictionary::accept(BItemVisitor *visitor) {
 	visitor->visit(this);
+}
+
+BDictionary::mapped_type BDictionary::setDefault(std::string key, std::shared_ptr<BItem> value) {
+
+    return setDefault(BString::create(key), value);
+}
+
+BDictionary::mapped_type BDictionary::setDefault(key_type key, mapped_type value) {
+    mapped_type tmp = itemMap[key];
+    if (tmp == nullptr) {
+        itemMap[key] = value;
+    }
+
+    return itemMap[key];
+}
+
+bool BDictionary::hasKey(std::string key) {
+    std::shared_ptr<BString> tmpKey = std::shared_ptr<BString>(BString::create(key));
+    return hasKey(tmpKey);
+}
+
+bool BDictionary::hasKey(key_type key) {
+    mapped_type tmp = itemMap[key];
+    if (tmp == nullptr) {
+       return false;
+    }
+
+    return true;
 }
 
 } // namespace bencoding
