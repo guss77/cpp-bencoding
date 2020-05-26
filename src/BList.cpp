@@ -39,6 +39,10 @@ std::unique_ptr<BList> BList::create(std::vector<value_type> items) {
 	return std::unique_ptr<BList>(new BList(items));
 }
 
+BList::BItemList &BList::value(){
+    return this->itemList;
+}
+
 /**
 * @brief Returns the number of items in the list.
 */
