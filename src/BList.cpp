@@ -8,6 +8,7 @@
 #include "BList.h"
 
 #include <cassert>
+#include <vector>
 
 #include "BItemVisitor.h"
 
@@ -21,7 +22,7 @@ BList::BList() = default;
 /**
 * @brief Constructs a list containing the given @a items.
 */
-BList::BList(std::initializer_list<value_type> items):
+BList::BList(std::vector<value_type> items):
 	itemList(items) {}
 
 /**
@@ -34,7 +35,7 @@ std::unique_ptr<BList> BList::create() {
 /**
 * @brief Creates a returns a new list containing the given @a items.
 */
-std::unique_ptr<BList> BList::create(std::initializer_list<value_type> items) {
+std::unique_ptr<BList> BList::create(std::vector<value_type> items) {
 	return std::unique_ptr<BList>(new BList(items));
 }
 
@@ -90,6 +91,12 @@ BList::reference BList::front() {
 	assert(!empty() && "cannot call front() on an empty list");
 
 	return itemList.front();
+}
+
+BList::reference &BList::operator[](size_t idx) {
+    assert(itemList.size() > idx && idx >= 0  && "cannot call front() on an empty list");
+
+    return itemList[idx];
 }
 
 /**

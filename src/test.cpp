@@ -9,6 +9,7 @@
 #include <memory>
 #include <iostream>
 #include "PrettyPrinter.h"
+#include "BList.h"
 
 using namespace std;
 using namespace bencoding;
@@ -45,7 +46,7 @@ int main() {
 
     shared_ptr<BString> key2 = shared_ptr<BString>(BString::create("key2"));
     shared_ptr<BString> value2 = shared_ptr<BString>(BString::create("value2"));
-    // shared_ptr<BDictionary> d1 = shared_ptr<BDictionary>(BDictionary::create({{key2, value2}}));
+    shared_ptr<BDictionary> d1 = shared_ptr<BDictionary>(BDictionary::create({{key2, value2}}));
 
     shared_ptr<BString> key3 = shared_ptr<BString>(BString::create("key3"));
     shared_ptr<BString> value3 = shared_ptr<BString>(BString::create("value3"));
@@ -62,13 +63,22 @@ int main() {
     cout << getPrettyRepr(dict)  << endl;
     cout << getPrettyRepr(deft)  << endl;
 
-    cout << dict->hasKey("key") << endl;
+    cout << dict->hasKey("key2") << endl;
 
     cout<< (*dict)["key2"]->as<BString>()->value()->c_str() << endl;
 
     shared_ptr<BString> value4 = shared_ptr<BString>(BString::create("value4"));
     (*dict)["key4"] = value4;
     cout<< (*dict)["key4"]->as<BString>()->value()->c_str() << endl;
+
+    dict->erase("key4");
+
+    auto vl = BList::create({
+        BString::create("abcd"),
+        BString::create("1234")
+    });
+
+    cout << *(*vl)[1]->as<BString>()->value() << endl;
 
     return 0;
 }

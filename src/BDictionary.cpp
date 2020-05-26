@@ -6,7 +6,7 @@
 */
 #include <iostream>
 #include "BDictionary.h"
-
+#include <map>
 #include <cassert>
 
 #include "BItemVisitor.h"
@@ -85,6 +85,15 @@ BDictionary::mapped_type &BDictionary::operator[](std::string key) {
     return itemMap[tmpKey];
 }
 
+BDictionary::size_type BDictionary::erase(const std::string key) {
+    std::shared_ptr<BString> keystr = std::shared_ptr<BString>(BString::create(key));
+    return erase(keystr);
+}
+
+BDictionary::size_type BDictionary::erase(const key_type& key) {
+    return itemMap.erase(key);
+}
+
 /**
 * @brief Returns an iterator to the beginning of the dictionary.
 */
@@ -151,8 +160,8 @@ bool BDictionary::hasKey(std::string key) {
 }
 
 bool BDictionary::hasKey(key_type key) {
-    mapped_type tmp = itemMap[key];
-    if (tmp == nullptr) {
+    // mapped_type tmp = itemMap[key];
+    if (itemMap.find(key) == itemMap.end()) {
        return false;
     }
 

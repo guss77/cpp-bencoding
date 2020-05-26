@@ -11,6 +11,7 @@
 #include <initializer_list>
 #include <list>
 #include <memory>
+#include <vector>
 
 #include "BItem.h"
 
@@ -26,7 +27,7 @@ namespace bencoding {
 class BList: public BItem {
 private:
 	/// List of items.
-	using BItemList = std::list<std::shared_ptr<BItem>>;
+	using BItemList = std::vector<std::shared_ptr<BItem>>;
 
 public:
 	/// Value type.
@@ -49,7 +50,9 @@ public:
 
 public:
 	static std::unique_ptr<BList> create();
-	static std::unique_ptr<BList> create(std::initializer_list<value_type> items);
+	static std::unique_ptr<BList> create(std::vector<value_type> items);
+
+    BList::reference &operator[](size_t idx);
 
 	/// @name Capacity
 	/// @{
@@ -88,7 +91,7 @@ public:
 
 private:
 	BList();
-	explicit BList(std::initializer_list<value_type> items);
+	explicit BList(std::vector<value_type> items);
 
 private:
 	/// Underlying list of items.

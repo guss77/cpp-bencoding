@@ -11,6 +11,7 @@
 #include <initializer_list>
 #include <map>
 #include <memory>
+#include <string>
 
 #include "BItem.h"
 
@@ -88,6 +89,9 @@ public:
     mapped_type setDefault(std::string key, std::shared_ptr<BItem> value);
     bool hasKey(std::string key);
     bool hasKey(key_type key);
+
+    size_type erase(const key_type& __k);
+    size_type erase(const std::string __k);
 
 	/// @name Capacity
 	/// @{
