@@ -18,6 +18,10 @@ class BItemVisitor;
 * @brief Base class for all items (integers, strings, etc.).
 */
 class BItem: public std::enable_shared_from_this<BItem> {
+
+public:
+    using BItemPtr = std::shared_ptr<BItem>;
+
 public:
 	virtual ~BItem() = 0;
 

@@ -24,6 +24,7 @@ class BInteger: public BItem {
 public:
 	/// Type of the underlying integral value.
 	using ValueType = int64_t;
+    using BIntegerPtr = std::shared_ptr<BInteger>;
 
 public:
 	static std::unique_ptr<BInteger> create(ValueType value);

@@ -57,6 +57,8 @@ private:
 	using BItemMap = std::map<std::shared_ptr<BString>, std::shared_ptr<BItem>, BStringByValueComparator>;
 
 public:
+    using BDictionaryPtr = std::shared_ptr<BDictionary>;
+
 	/// Key type.
 	using key_type = BItemMap::key_type;
 
