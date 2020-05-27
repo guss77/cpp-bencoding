@@ -24,7 +24,6 @@ class BString: public BItem {
 public:
 	/// Type of the underlying string value.
 //	using ValueType = std::string;
-    using BStringPtr = std::shared_ptr<BString>;
     using ValueType = std::shared_ptr<std::string>;
 public:
     static std::unique_ptr<BString> create(std::string value);
@@ -47,6 +46,8 @@ private:
 private:
 	ValueType _value;
 };
+
+using BStringPtr = std::shared_ptr<BString>;
 
 } // namespace bencoding
 

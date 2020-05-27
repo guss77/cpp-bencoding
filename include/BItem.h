@@ -20,9 +20,6 @@ class BItemVisitor;
 class BItem: public std::enable_shared_from_this<BItem> {
 
 public:
-    using BItemPtr = std::shared_ptr<BItem>;
-
-public:
 	virtual ~BItem() = 0;
 
 	/// @name BItemVisitor Support
@@ -63,6 +60,8 @@ private:
 	BItem(const BItem &) = delete;
 	BItem &operator=(const BItem &) = delete;
 };
+
+using BItemPtr = std::shared_ptr<BItem>;
 
 } // namespace bencoding
 

@@ -57,7 +57,6 @@ private:
 	using BItemMap = std::map<std::shared_ptr<BString>, std::shared_ptr<BItem>, BStringByValueComparator>;
 
 public:
-    using BDictionaryPtr = std::shared_ptr<BDictionary>;
 
 	/// Key type.
 	using key_type = BItemMap::key_type;
@@ -130,6 +129,8 @@ private:
 	/// Underlying list of items.
 	BItemMap itemMap;
 };
+
+using BDictionaryPtr = std::shared_ptr<BDictionary>;
 
 } // namespace bencoding
 

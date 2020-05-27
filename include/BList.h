@@ -30,7 +30,6 @@ private:
 	using BItemList = std::vector<std::shared_ptr<BItem>>;
 
 public:
-    using BListPtr = std::shared_ptr<BList>;
 
 	/// Value type.
 	using value_type = BItemList::value_type;
@@ -100,6 +99,8 @@ private:
 	/// Underlying list of items.
 	BItemList itemList;
 };
+
+using BListPtr = std::shared_ptr<BList>;
 
 } // namespace bencoding
 
