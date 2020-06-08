@@ -86,6 +86,8 @@ public:
 	static std::unique_ptr<BDictionary> create();
 	static std::unique_ptr<BDictionary> create(std::initializer_list<value_type> items);
 
+    mapped_type getDefault(std::string key, std::shared_ptr<BItem> value);
+    mapped_type getDefault(key_type key, mapped_type value);
     mapped_type setDefault(key_type key, mapped_type value);
     mapped_type setDefault(std::string key, std::shared_ptr<BItem> value);
     bool hasKey(std::string key);

@@ -140,6 +140,19 @@ void BDictionary::accept(BItemVisitor *visitor) {
 	visitor->visit(this);
 }
 
+BDictionary::mapped_type BDictionary::getDefault(std::string key, std::shared_ptr<BItem> value) {
+
+    return getDefault(BString::create(key), value);
+}
+
+BDictionary::mapped_type BDictionary::getDefault(key_type key, mapped_type value) {
+    if (itemMap.find(key) == itemMap.end()) {
+        return value;
+    }
+
+    return itemMap[key];
+}
+
 BDictionary::mapped_type BDictionary::setDefault(std::string key, std::shared_ptr<BItem> value) {
 
     return setDefault(BString::create(key), value);
