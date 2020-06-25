@@ -60,6 +60,7 @@ public:
 	/// @{
 	size_type size() const;
 	bool empty() const;
+	void clear();
 	/// @}
 
 	/// @name Modifiers

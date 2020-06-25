@@ -43,6 +43,10 @@ BList::BItemList &BList::value(){
     return this->itemList;
 }
 
+void BList::clear() {
+    itemList.clear();
+}
+
 /**
 * @brief Returns the number of items in the list.
 */
