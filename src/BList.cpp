@@ -9,7 +9,8 @@
 
 #include <cassert>
 #include <vector>
-
+#include <random>
+#include <chrono>
 #include "BItemVisitor.h"
 
 namespace bencoding {
@@ -105,6 +106,45 @@ BList::reference &BList::operator[](size_t idx) {
     assert(itemList.size() > idx && idx >= 0  && "cannot call front() on an empty list");
 
     return itemList[idx];
+}
+
+void BList::shuffle() {
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine e(seed);
+    std::shuffle(itemList.begin(), itemList.end(), e);
+}
+
+// BList &BList::extend(const BList &list_b) {
+//     this->itemList.reserve(this->size() + std::distance(list_b.begin(), list_b.end()));
+//     this->itemList.insert(this->end(), list_b.begin(), list_b.end());
+//     return *this;
+// }
+
+void BList::extend(BListPtr list_b) {
+    this->itemList.reserve(this->size() + std::distance(list_b->begin(), list_b->end()));
+    this->itemList.insert(this->end(), list_b->begin(), list_b->end());
+}
+
+std::shared_ptr<BList> BList::range(int s_idx) {
+    return this->range(s_idx, this->size());
+}
+std::shared_ptr<BList> BList::range(int s_idx, int e_idx) {
+    if (this->size() == 0) {
+        return BList::create();
+    }
+
+    if (s_idx < 0) {
+        s_idx = this->size() + s_idx;
+    }
+    if (e_idx < 0) {
+        e_idx = this->size() + e_idx;
+    }
+
+    assert(s_idx <= static_cast<int>(this->size()));
+    assert(s_idx <= e_idx);
+
+    auto newList = BList::create(std::vector<value_type>(this->begin() + s_idx, this->begin() + e_idx));
+    return newList;
 }
 
 /**

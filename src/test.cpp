@@ -75,10 +75,39 @@ int main() {
 
     auto vl = BList::create({
         BString::create("abcd"),
-        BString::create("1234")
+        BString::create("1234"),
+        BString::create("xxx"),
+        BString::create("yyy")
+    });
+
+    BListPtr vl1 = BList::create({
+            BString::create("zzzabcd"),
+            BString::create("zzz1234"),
     });
 
     cout << *(*vl)[1]->as<BString>()->value() << endl;
+
+    auto mx = dict->values();
+    cout << "mx->size() : " << mx->size() << endl;
+
+    cout << *dict->getItemValue<BString>("key2")->value() << endl;
+
+    cout << "+++++++++++++" << endl;
+    for (int i = 0; i < 3; i++) {
+        vl->shuffle();
+        cout << "vl->getItem(1) : " << *vl->getItem<BString>(1)->value() << endl;
+    }
+
+    // vl->extend(*vl1).extend(*vl1);
+    vl->extend(vl1);
+    vl->extend(vl1);
+    cout << vl->size() << endl;
+
+    cout << "+++++++++++++" << endl;
+    auto tmp_vl = vl->range(0, -1);
+    cout << tmp_vl->size() << endl;
+    auto tmp_vl1 = vl->range(-4);
+    cout << tmp_vl1->size() << endl;
 
     return 0;
 }

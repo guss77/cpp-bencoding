@@ -67,6 +67,23 @@ public:
 	/// @{
 	void push_back(const value_type &bItem);
 	void pop_back();
+    void shuffle();
+    // BList &extend(const BList &list_b);
+    void extend(std::shared_ptr<BList> list_b);
+
+	template <typename T >
+    std::shared_ptr<T> getItem(size_t idx) {
+        return (*this)[idx]->as<T>();
+    }
+
+    void setItem(size_t idx, BItemPtr item) {
+        assert(idx <= this->size());
+        (*this)[idx] = item;
+    }
+
+    std::shared_ptr<BList> range(int s_idx);
+    std::shared_ptr<BList> range(int s_idx, int e_idx);
+
 	/// @}
 
 	/// @name Element Access

@@ -4,13 +4,12 @@
 * @license   BSD, see the @c LICENSE file for more details
 * @brief     Implementation of the BDictionary class.
 */
-#include <iostream>
 #include "BDictionary.h"
 #include <map>
-#include <cassert>
 
 #include "BItemVisitor.h"
 #include "BString.h"
+#include "BList.h"
 
 namespace bencoding {
 
@@ -92,6 +91,15 @@ BDictionary::size_type BDictionary::erase(const std::string key) {
 
 BDictionary::size_type BDictionary::erase(const key_type& key) {
     return itemMap.erase(key);
+}
+
+std::shared_ptr<BList> BDictionary::values() {
+    BListPtr rst = BList::create();
+    for(auto item : itemMap){
+        rst->push_back(item.second);
+    }
+
+    return rst;
 }
 
 /**

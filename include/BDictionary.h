@@ -37,6 +37,9 @@ class BString;
 *
 * Use create() to create instances of the class.
 */
+
+class BList;
+
 class BDictionary: public BItem {
 private:
 	/**
@@ -95,6 +98,25 @@ public:
 
     size_type erase(const key_type& __k);
     size_type erase(const std::string __k);
+    std::shared_ptr<BList> values();
+
+    template<typename T>
+    std::shared_ptr<T> getItemValue(key_type key) {
+        return (*this)[key]->as<T>();
+    }
+
+    template<typename T>
+    std::shared_ptr<T> getItemValue(std::string key) {
+        return (*this)[key]->as<T>();
+    }
+
+    void setItemValue(key_type key, mapped_type value){
+        (*this)[key] = value;
+    }
+
+    void setItemValue(std::string key, mapped_type value){
+        (*this)[key] = value;
+    }
 
 	/// @name Capacity
 	/// @{
