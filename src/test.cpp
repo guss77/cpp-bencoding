@@ -90,7 +90,7 @@ int main() {
     auto mx = dict->values();
     cout << "mx->size() : " << mx->size() << endl;
 
-    cout << *dict->getItemValue<BString>("key2")->value() << endl;
+    cout << *dict->getValue<BString>("key2")->value() << endl;
 
     cout << "+++++++++++++" << endl;
     for (int i = 0; i < 3; i++) {
@@ -112,7 +112,7 @@ int main() {
     vl->range_erase(-3, -1);
     cout << vl->size() << endl;
 
-    cout << *dict->getDefault<BString>("key20", BString::create("empty"))->value() << endl;
+    cout << *dict->getValue<BString>("key20", BString::create("empty"))->value() << endl;
 
     cout << *dict->getValue<BString>("key2")->value() << endl;
 

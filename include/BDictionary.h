@@ -90,8 +90,8 @@ public:
 	static std::unique_ptr<BDictionary> create();
 	static std::unique_ptr<BDictionary> create(std::initializer_list<value_type> items);
 
-    // mapped_type getDefault(std::string key, std::shared_ptr<BItem> value);
-    // mapped_type getDefault(key_type key, mapped_type value);
+    // mapped_type getValue(std::string key, std::shared_ptr<BItem> value);
+    // mapped_type getValue(key_type key, mapped_type value);
 
     template <typename T>
     std::shared_ptr<T> getValue(std::string key) {
@@ -109,13 +109,13 @@ public:
     }
 
     template <typename T>
-    std::shared_ptr<T> getDefault(std::string key, std::shared_ptr<T> value) {
+    std::shared_ptr<T> getValue(std::string key, std::shared_ptr<T> value) {
 
-        return getDefault<T>(BString::create(key), value);
+        return getValue<T>(BString::create(key), value);
     }
 
     template <typename T>
-    std::shared_ptr<T> getDefault(key_type key, std::shared_ptr<T> value) {
+    std::shared_ptr<T> getValue(key_type key, std::shared_ptr<T> value) {
         if (itemMap.find(key) == itemMap.end()) {
             return value;
         }
@@ -132,22 +132,22 @@ public:
     size_type erase(const std::string __k);
     std::shared_ptr<BList> values();
 
-    template<typename T>
-    std::shared_ptr<T> getItemValue(key_type key) {
-        return (*this)[key]->as<T>();
-    }
+    // template<typename T>
+    // std::shared_ptr<T> getItemValue(key_type key) {
+    //     return (*this)[key]->as<T>();
+    // }
+    //
+    // template<typename T>
+    // std::shared_ptr<T> getItemValue(std::string key) {
+    //     return (*this)[key]->as<T>();
+    // }
 
-    template<typename T>
-    std::shared_ptr<T> getItemValue(std::string key) {
-        return (*this)[key]->as<T>();
-    }
-
-    void setItemValue(key_type key, mapped_type value){
+    void setValue(key_type key, mapped_type value){
         (*this)[key] = value;
     }
 
-    void setItemValue(std::string key, mapped_type value){
-        (*this)[key] = value;
+    void setValue(std::string key, mapped_type value){
+        setValue(BString::create(key), value);
     }
 
 	/// @name Capacity
