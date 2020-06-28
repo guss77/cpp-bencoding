@@ -125,6 +125,28 @@ void BList::extend(BListPtr list_b) {
     this->itemList.insert(this->end(), list_b->begin(), list_b->end());
 }
 
+void BList::range_erase(int s_idx) {
+    this->range_erase(s_idx, this->size());
+}
+
+void BList::range_erase(int s_idx, int e_idx) {
+    if (this->size() == 0) {
+        return ;
+    }
+
+    if (s_idx < 0) {
+        s_idx = this->size() + s_idx;
+    }
+    if (e_idx < 0) {
+        e_idx = this->size() + e_idx;
+    }
+
+    int count = e_idx - s_idx;
+
+    for (int i = 0; i < count; i++)
+        this->itemList.erase(this->itemList.begin() + s_idx);
+}
+
 std::shared_ptr<BList> BList::range(int s_idx) {
     return this->range(s_idx, this->size());
 }

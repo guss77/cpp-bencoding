@@ -12,12 +12,13 @@
 #include <map>
 #include <memory>
 #include <string>
+#include "BString.h"
 
 #include "BItem.h"
 
 namespace bencoding {
 
-class BString;
+// class BString;
 
 /**
 * @brief Representation of a dictionary.
@@ -89,8 +90,39 @@ public:
 	static std::unique_ptr<BDictionary> create();
 	static std::unique_ptr<BDictionary> create(std::initializer_list<value_type> items);
 
-    mapped_type getDefault(std::string key, std::shared_ptr<BItem> value);
-    mapped_type getDefault(key_type key, mapped_type value);
+    // mapped_type getDefault(std::string key, std::shared_ptr<BItem> value);
+    // mapped_type getDefault(key_type key, mapped_type value);
+
+    template <typename T>
+    std::shared_ptr<T> getValue(std::string key) {
+
+        return getValue<T>(BString::create(key));
+    }
+
+    template <typename T>
+    std::shared_ptr<T> getValue(key_type key) {
+        if (this->hasKey(key)) {
+            return itemMap[key]->as<T>();
+        }
+
+        return nullptr;
+    }
+
+    template <typename T>
+    std::shared_ptr<T> getDefault(std::string key, std::shared_ptr<T> value) {
+
+        return getDefault<T>(BString::create(key), value);
+    }
+
+    template <typename T>
+    std::shared_ptr<T> getDefault(key_type key, std::shared_ptr<T> value) {
+        if (itemMap.find(key) == itemMap.end()) {
+            return value;
+        }
+
+        return itemMap[key]->as<T>();
+    }
+
     mapped_type setDefault(key_type key, mapped_type value);
     mapped_type setDefault(std::string key, std::shared_ptr<BItem> value);
     bool hasKey(std::string key);

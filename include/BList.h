@@ -83,6 +83,8 @@ public:
 
     std::shared_ptr<BList> range(int s_idx);
     std::shared_ptr<BList> range(int s_idx, int e_idx);
+    void range_erase(int s_idx);
+    void range_erase(int s_idx, int e_idx);
 
 	/// @}
 

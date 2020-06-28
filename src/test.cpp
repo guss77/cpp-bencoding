@@ -109,6 +109,13 @@ int main() {
     auto tmp_vl1 = vl->range(-4);
     cout << tmp_vl1->size() << endl;
 
+    vl->range_erase(-3, -1);
+    cout << vl->size() << endl;
+
+    cout << *dict->getDefault<BString>("key20", BString::create("empty"))->value() << endl;
+
+    cout << *dict->getValue<BString>("key2")->value() << endl;
+
     return 0;
 }
 
