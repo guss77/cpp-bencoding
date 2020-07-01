@@ -23,12 +23,12 @@ BString::BString(std::string value) {
 /**
 * @brief Creates and returns a new string.
 */
-std::unique_ptr<BString> BString::create(ValueType value) {
-	return std::unique_ptr<BString>(new BString(value));
+std::shared_ptr<BString> BString::create(ValueType value) {
+	return std::shared_ptr<BString>(new BString(value));
 }
 
-std::unique_ptr<BString> BString::create(std::string value) {
-    return std::unique_ptr<BString>(new BString(value));
+std::shared_ptr<BString> BString::create(std::string value) {
+    return std::shared_ptr<BString>(new BString(value));
 }
 
 /**

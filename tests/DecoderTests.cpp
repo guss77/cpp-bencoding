@@ -30,7 +30,7 @@ protected:
 	void assertDecodedAs(std::shared_ptr<BItem> bItem);
 
 protected:
-	std::unique_ptr<Decoder> decoder;
+	std::shared_ptr<Decoder> decoder;
 };
 
 template <typename T>

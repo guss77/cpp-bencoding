@@ -23,7 +23,7 @@ protected:
 	EncoderTests(): encoder(Encoder::create()) {}
 
 protected:
-	std::unique_ptr<Encoder> encoder;
+	std::shared_ptr<Encoder> encoder;
 };
 
 //

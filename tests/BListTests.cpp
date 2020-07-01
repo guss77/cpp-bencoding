@@ -150,7 +150,7 @@ IterationWorksCorrectlyOverListWithTwoItems) {
 
 TEST_F(BListTests,
 IterationWorksCorrectlyOverEmptyConstantList) {
-	std::unique_ptr<const BList> l = BList::create();
+	std::shared_ptr<const BList> l = BList::create();
 
 	EXPECT_EQ(l->begin(), l->end());
 }
@@ -178,7 +178,7 @@ IterationWorksCorrectlyOverConstantListWithTwoItems) {
 
 TEST_F(BListTests,
 IterationWorksCorrectlyOverEmptyConstantListUsingCPrefixedMethods) {
-	std::unique_ptr<const BList> l = BList::create();
+	std::shared_ptr<const BList> l = BList::create();
 
 	EXPECT_EQ(l->cbegin(), l->cend());
 }

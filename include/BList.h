@@ -50,8 +50,8 @@ public:
 	using const_iterator = BItemList::const_iterator;
 
 public:
-	static std::unique_ptr<BList> create();
-	static std::unique_ptr<BList> create(std::vector<value_type> items);
+	static std::shared_ptr<BList> create();
+	static std::shared_ptr<BList> create(std::vector<value_type> items);
     BItemList &value();
 
     BList::reference &operator[](size_t idx);

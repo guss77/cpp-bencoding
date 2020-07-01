@@ -39,16 +39,16 @@ BDictionary::BDictionary(std::initializer_list<value_type> items):
 /**
 * @brief Creates and returns a new dictionary.
 */
-std::unique_ptr<BDictionary> BDictionary::create() {
-	return std::unique_ptr<BDictionary>(new BDictionary());
+std::shared_ptr<BDictionary> BDictionary::create() {
+	return std::shared_ptr<BDictionary>(new BDictionary());
 }
 
 /**
 * @brief Creates and returns a new dictionary containing the given @a items.
 */
-std::unique_ptr<BDictionary> BDictionary::create(
+std::shared_ptr<BDictionary> BDictionary::create(
 		std::initializer_list<value_type> items) {
-	return std::unique_ptr<BDictionary>(new BDictionary(items));
+	return std::shared_ptr<BDictionary>(new BDictionary(items));
 }
 
 /**

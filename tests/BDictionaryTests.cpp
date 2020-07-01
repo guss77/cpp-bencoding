@@ -101,14 +101,14 @@ IterationWorksCorrectlyOverEmptyDictionary) {
 
 TEST_F(BDictionaryTests,
 IterationWorksCorrectlyOverEmptyConstantDictionary) {
-	std::unique_ptr<const BDictionary> d = BDictionary::create();
+	std::shared_ptr<const BDictionary> d = BDictionary::create();
 
 	EXPECT_EQ(d->begin(), d->end());
 }
 
 TEST_F(BDictionaryTests,
 IterationWorksCorrectlyOverEmptyConstantDictionaryUsingCPrefixedMethods) {
-	std::unique_ptr<const BDictionary> d = BDictionary::create();
+	std::shared_ptr<const BDictionary> d = BDictionary::create();
 
 	EXPECT_EQ(d->cbegin(), d->cend());
 }

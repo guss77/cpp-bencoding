@@ -87,8 +87,8 @@ public:
 	using const_iterator = BItemMap::const_iterator;
 
 public:
-	static std::unique_ptr<BDictionary> create();
-	static std::unique_ptr<BDictionary> create(std::initializer_list<value_type> items);
+	static std::shared_ptr<BDictionary> create();
+	static std::shared_ptr<BDictionary> create(std::initializer_list<value_type> items);
 
     // mapped_type getValue(std::string key, std::shared_ptr<BItem> value);
     // mapped_type getValue(key_type key, mapped_type value);

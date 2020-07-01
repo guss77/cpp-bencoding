@@ -19,8 +19,8 @@ BInteger::BInteger(ValueType value): _value(value) {}
 /**
 * @brief Creates and returns a new integer.
 */
-std::unique_ptr<BInteger> BInteger::create(ValueType value) {
-	return std::unique_ptr<BInteger>(new BInteger(value));
+std::shared_ptr<BInteger> BInteger::create(ValueType value) {
+	return std::shared_ptr<BInteger>(new BInteger(value));
 }
 
 /**

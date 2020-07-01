@@ -33,8 +33,8 @@ Decoder::Decoder() {}
 /**
 * @brief Creates a new decoder.
 */
-std::unique_ptr<Decoder> Decoder::create() {
-	return std::unique_ptr<Decoder>(new Decoder());
+std::shared_ptr<Decoder> Decoder::create() {
+	return std::shared_ptr<Decoder>(new Decoder());
 }
 
 /**
@@ -43,7 +43,7 @@ std::unique_ptr<Decoder> Decoder::create() {
 * If there are some characters left after the decoded data, this function
 * throws DecodingError.
 */
-std::unique_ptr<BItem> Decoder::decode(const std::string &data) {
+std::shared_ptr<BItem> Decoder::decode(const std::string &data) {
 	std::istringstream input(data);
 	auto decodedData = decode(input);
 	validateInputDoesNotContainUndecodedCharacters(input);
@@ -57,7 +57,7 @@ std::unique_ptr<BItem> Decoder::decode(const std::string &data) {
 * input, i.e. they are not read. This behavior differs for the overload of
 * decode() that takes @c std::string as the input.
 */
-std::unique_ptr<BItem> Decoder::decode(std::istream &input) {
+std::shared_ptr<BItem> Decoder::decode(std::istream &input) {
 	switch (input.peek()) {
 		case 'd':
 			return decodeDictionary(input);
@@ -82,7 +82,7 @@ std::unique_ptr<BItem> Decoder::decode(std::istream &input) {
 	}
 
 	assert(false && "should never happen");
-	return std::unique_ptr<BItem>();
+	return std::shared_ptr<BItem>();
 }
 
 /**
@@ -117,7 +117,7 @@ void Decoder::readExpectedChar(std::istream &input, char expected_char) const {
 * href="https://wiki.theory.org/BitTorrentSpecification#Bencoding">specification</a>,
 * they must be sorted).
 */
-std::unique_ptr<BDictionary> Decoder::decodeDictionary(std::istream &input) {
+std::shared_ptr<BDictionary> Decoder::decodeDictionary(std::istream &input) {
 	readExpectedChar(input, 'd');
 	auto bDictionary = decodeDictionaryItemsIntoDictionary(input);
 	readExpectedChar(input, 'e');
@@ -128,7 +128,7 @@ std::unique_ptr<BDictionary> Decoder::decodeDictionary(std::istream &input) {
 * @brief Decodes items from @a input, adds them to a dictionary, and returns
 *        that dictionary.
 */
-std::unique_ptr<BDictionary> Decoder::decodeDictionaryItemsIntoDictionary(
+std::shared_ptr<BDictionary> Decoder::decodeDictionaryItemsIntoDictionary(
 		std::istream &input) {
 	auto bDictionary = BDictionary::create();
 	while (input && input.peek() != 'e') {
@@ -157,7 +157,7 @@ std::shared_ptr<BString> Decoder::decodeDictionaryKey(std::istream &input) {
 /**
 * @brief Decodes a dictionary value from @a input.
 */
-std::unique_ptr<BItem> Decoder::decodeDictionaryValue(std::istream &input) {
+std::shared_ptr<BItem> Decoder::decodeDictionaryValue(std::istream &input) {
 	return decode(input);
 }
 
@@ -179,7 +179,7 @@ std::unique_ptr<BItem> Decoder::decodeDictionaryValue(std::istream &input) {
 * href="https://wiki.theory.org/BitTorrentSpecification#Bencoding">
 * specification</a>).
 */
-std::unique_ptr<BInteger> Decoder::decodeInteger(std::istream &input) const {
+std::shared_ptr<BInteger> Decoder::decodeInteger(std::istream &input) const {
 	return decodeEncodedInteger(readEncodedInteger(input));
 }
 
@@ -201,7 +201,7 @@ std::string Decoder::readEncodedInteger(std::istream &input) const {
 /**
 * @brief Decodes the given encoded integer.
 */
-std::unique_ptr<BInteger> Decoder::decodeEncodedInteger(
+std::shared_ptr<BInteger> Decoder::decodeEncodedInteger(
 		const std::string &encodedInteger) const {
 	// See the description of decodeInteger() for the format and example.
 	std::regex integerRegex("i([-+]?(0|[1-9][0-9]*))e");
@@ -230,7 +230,7 @@ std::unique_ptr<BInteger> Decoder::decodeEncodedInteger(
 * l4:spam4:eggse represents a list containing two strings "spam" and "eggs"
 * @endcode
 */
-std::unique_ptr<BList> Decoder::decodeList(std::istream &input) {
+std::shared_ptr<BList> Decoder::decodeList(std::istream &input) {
 	readExpectedChar(input, 'l');
 	auto bList = decodeListItemsIntoList(input);
 	readExpectedChar(input, 'e');
@@ -241,7 +241,7 @@ std::unique_ptr<BList> Decoder::decodeList(std::istream &input) {
 * @brief Decodes items from @a input, appends them to a list, and returns that
 *        list.
 */
-std::unique_ptr<BList> Decoder::decodeListItemsIntoList(std::istream &input) {
+std::shared_ptr<BList> Decoder::decodeListItemsIntoList(std::istream &input) {
 	auto bList = BList::create();
 	while (input && input.peek() != 'e') {
 		bList->push_back(decode(input));
@@ -262,7 +262,7 @@ std::unique_ptr<BList> Decoder::decodeListItemsIntoList(std::istream &input) {
 * 4:test represents the string "test"
 * @endcode
 */
-std::unique_ptr<BString> Decoder::decodeString(std::istream &input) const {
+std::shared_ptr<BString> Decoder::decodeString(std::istream &input) const {
 	std::string::size_type stringLength(readStringLength(input));
 	readExpectedChar(input, ':');
 	std::string str(readStringOfGivenLength(input, stringLength));
@@ -322,7 +322,7 @@ void Decoder::validateInputDoesNotContainUndecodedCharacters(std::istream &input
 *
 * See Decoder::decode() for more details.
 */
-std::unique_ptr<BItem> decode(const std::string &data) {
+std::shared_ptr<BItem> decode(const std::string &data) {
 	auto decoder = Decoder::create();
 	return decoder->decode(data);
 }
@@ -336,7 +336,7 @@ std::unique_ptr<BItem> decode(const std::string &data) {
 *
 * See Decoder::decode() for more details.
 */
-std::unique_ptr<BItem> decode(std::istream &input) {
+std::shared_ptr<BItem> decode(std::istream &input) {
 	auto decoder = Decoder::create();
 	return decoder->decode(input);
 }

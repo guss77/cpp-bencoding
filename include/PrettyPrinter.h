@@ -26,7 +26,7 @@ class BItem;
 */
 class PrettyPrinter: private BItemVisitor {
 public:
-	static std::unique_ptr<PrettyPrinter> create();
+	static std::shared_ptr<PrettyPrinter> create();
 
 	std::string getPrettyRepr(std::shared_ptr<BItem> data,
 		const std::string &indent = "    ");

@@ -28,7 +28,7 @@ class BItem;
 */
 class Encoder: private BItemVisitor {
 public:
-	static std::unique_ptr<Encoder> create();
+	static std::shared_ptr<Encoder> create();
 
 	std::string encode(std::shared_ptr<BItem> data);
 

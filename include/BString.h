@@ -26,8 +26,8 @@ public:
 //	using ValueType = std::string;
     using ValueType = std::shared_ptr<std::string>;
 public:
-    static std::unique_ptr<BString> create(std::string value);
-	static std::unique_ptr<BString> create(ValueType value);
+    static std::shared_ptr<BString> create(std::string value);
+	static std::shared_ptr<BString> create(ValueType value);
 
 	ValueType value() const;
 	void setValue(ValueType value);

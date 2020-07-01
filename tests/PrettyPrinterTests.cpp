@@ -24,7 +24,7 @@ protected:
 	PrettyPrinterTests(): printer(PrettyPrinter::create()) {}
 
 protected:
-	std::unique_ptr<PrettyPrinter> printer;
+	std::shared_ptr<PrettyPrinter> printer;
 };
 
 //

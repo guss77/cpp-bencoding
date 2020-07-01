@@ -29,15 +29,15 @@ BList::BList(std::vector<value_type> items):
 /**
 * @brief Creates and returns a new list.
 */
-std::unique_ptr<BList> BList::create() {
-	return std::unique_ptr<BList>(new BList());
+std::shared_ptr<BList> BList::create() {
+	return std::shared_ptr<BList>(new BList());
 }
 
 /**
 * @brief Creates a returns a new list containing the given @a items.
 */
-std::unique_ptr<BList> BList::create(std::vector<value_type> items) {
-	return std::unique_ptr<BList>(new BList(items));
+std::shared_ptr<BList> BList::create(std::vector<value_type> items) {
+	return std::shared_ptr<BList>(new BList(items));
 }
 
 BList::BItemList &BList::value(){

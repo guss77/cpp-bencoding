@@ -23,8 +23,8 @@ PrettyPrinter::PrettyPrinter() = default;
 /**
 * @brief Creates a new printer.
 */
-std::unique_ptr<PrettyPrinter> PrettyPrinter::create() {
-	return std::unique_ptr<PrettyPrinter>(new PrettyPrinter());
+std::shared_ptr<PrettyPrinter> PrettyPrinter::create() {
+	return std::shared_ptr<PrettyPrinter>(new PrettyPrinter());
 }
 
 /**

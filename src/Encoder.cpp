@@ -23,8 +23,8 @@ Encoder::Encoder() {}
 /**
 * @brief Creates a new encoder.
 */
-std::unique_ptr<Encoder> Encoder::create() {
-	return std::unique_ptr<Encoder>(new Encoder());
+std::shared_ptr<Encoder> Encoder::create() {
+	return std::shared_ptr<Encoder>(new Encoder());
 }
 
 /**

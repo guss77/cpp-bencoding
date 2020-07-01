@@ -26,7 +26,7 @@ public:
 	using ValueType = int64_t;
 
 public:
-	static std::unique_ptr<BInteger> create(ValueType value);
+	static std::shared_ptr<BInteger> create(ValueType value);
 
 	ValueType value() const;
 	void setValue(ValueType value);
