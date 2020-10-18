@@ -17,6 +17,7 @@ set(BENCODING_SOURCES
 	Encoder.cpp
 	PrettyPrinter.cpp
 	Utils.cpp
+	Literals.cpp
 )
 
 add_library(bencoding ${BENCODING_SOURCES})

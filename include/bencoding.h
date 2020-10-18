@@ -20,5 +20,6 @@
 #include "Encoder.h"
 #include "PrettyPrinter.h"
 #include "Utils.h"
+#include "Literals.h"
 
 #endif
