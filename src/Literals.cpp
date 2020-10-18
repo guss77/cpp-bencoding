@@ -7,11 +7,15 @@
 
 #include "Literals.h"
 
-namespace bencoding {
+using namespace bencoding;
 
 /**
 * @brief Create a BString litaral
 */
-std::shared_ptr<BString> operator "" _bencoding(const char* val) { return BString::create(val); }
+BStringPtr operator "" _bencoding(const char* str, size_t len) {
+	return BString::create(std::string(str, len));
+}
 
-} // namespace bencoding
+BIntegerPtr operator "" _bencoding(unsigned long long i) {
+	return BInteger::create(i);
+}

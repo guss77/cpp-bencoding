@@ -11,11 +11,9 @@
 #include <memory>
 
 #include "BString.h"
+#include "BInteger.h"
 
-namespace bencoding {
-
-std::shared_ptr<BString> operator "" _bencoding(const char* val);
-
-}
+bencoding::BStringPtr operator "" _bencoding(const char* str, size_t len);
+bencoding::BIntegerPtr operator "" _bencoding(unsigned long long i);
 
 #endif
