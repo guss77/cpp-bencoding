@@ -80,12 +80,12 @@ BDictionary::mapped_type &BDictionary::operator[](key_type key) {
 }
 
 BDictionary::mapped_type &BDictionary::operator[](std::string key) {
-    key_type tmpKey = key_type(BString::create(key));
+    key_type tmpKey = BString::create(key);
     return itemMap[tmpKey];
 }
 
 BDictionary::size_type BDictionary::erase(const std::string key) {
-    std::shared_ptr<BString> keystr = std::shared_ptr<BString>(BString::create(key));
+    key_type keystr = BString::create(key);
     return erase(keystr);
 }
 
