@@ -12,6 +12,7 @@
 #include <list>
 #include <memory>
 #include <vector>
+#include <cassert>
 
 #include "BItem.h"
 
