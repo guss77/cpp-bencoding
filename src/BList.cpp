@@ -11,6 +11,7 @@
 #include <vector>
 #include <random>
 #include <chrono>
+#include <algorithm>
 #include "BItemVisitor.h"
 
 namespace bencoding {
