@@ -163,7 +163,7 @@ BDictionary::mapped_type BDictionary::setDefault(key_type key, mapped_type value
 }
 
 bool BDictionary::hasKey(std::string key) {
-    std::shared_ptr<BString> tmpKey = std::shared_ptr<BString>(BString::create(key));
+    key_type tmpKey = BString::create(key);
     return hasKey(tmpKey);
 }
 

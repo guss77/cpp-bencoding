@@ -44,12 +44,12 @@ public:
 int main() {
     shared_ptr<BDictionary> dict = BDictionary::create();
 
-    shared_ptr<BString> key2 = shared_ptr<BString>(BString::create("key2"));
-    shared_ptr<BString> value2 = shared_ptr<BString>(BString::create("value2"));
-    shared_ptr<BDictionary> d1 = shared_ptr<BDictionary>(BDictionary::create({{key2, value2}}));
+    shared_ptr<BString> key2 = BString::create("key2");
+    shared_ptr<BString> value2 = BString::create("value2");
+    shared_ptr<BDictionary> d1 = BDictionary::create({{key2, value2}});
 
-    shared_ptr<BString> key3 = shared_ptr<BString>(BString::create("key3"));
-    shared_ptr<BString> value3 = shared_ptr<BString>(BString::create("value3"));
+    shared_ptr<BString> key3 = BString::create("key3");
+    shared_ptr<BString> value3 = BString::create("value3");
 
     auto deft = dict->setDefault("key2", value2);
     cout << getPrettyRepr(dict)  << endl;
@@ -67,7 +67,7 @@ int main() {
 
     cout<< (*dict)["key2"]->as<BString>()->value()->c_str() << endl;
 
-    shared_ptr<BString> value4 = shared_ptr<BString>(BString::create("value4"));
+    shared_ptr<BString> value4 = BString::create("value4");
     (*dict)["key4"] = value4;
     cout<< (*dict)["key4"]->as<BString>()->value()->c_str() << endl;
 
